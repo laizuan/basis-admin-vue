@@ -1,0 +1,195 @@
+.login {
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/images/login-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  font-size: 1.4em;
+
+  h2 {
+    color: #fff;
+    font-size: 3.5rem;
+    font-family: Teko,sans-serif;
+    text-shadow: 8px 8px #000;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .submitBtn {
+    text-align: center;
+    color: #fff;
+    background: #2d8cf0;
+    padding: 15px 0;
+    line-height: 1.4;
+    cursor: pointer;
+  }
+  .spinBtn {
+    cursor: not-allowed;
+  }
+  .spin {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    opacity: .35;
+    content: "";
+    border-radius: inherit;
+    z-index: 1;
+    transition: opacity .2s;
+    pointer-events: none;
+  }
+
+  &-con {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-60%);
+    width: 600px;
+    left: 50%;
+      margin-left: -300px;
+    &-header {
+      font-size: 16px;
+      font-weight: 300;
+      text-align: center;
+      padding: 30px 0;
+    }
+
+    .form-con {
+      padding: 10px 0 0;
+    }
+
+    .login-tip {
+      font-size: 10px;
+      text-align: center;
+      color: #c3c3c3;
+    }
+  }
+  .input {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin: 1em;
+    width: calc(100% - 2em);
+    vertical-align: top;
+  }
+
+  .input__field {
+    position: relative;
+    display: block;
+    float: right;
+    padding: 0.8em;
+    width: 60%;
+    border: none;
+    border-radius: 0;
+    background: rgba(255, 255, 255, .1);
+    color: #ffffff;
+    font-weight: bold;
+    -webkit-appearance: none; /* for box shadows to show on iOS */
+  }
+
+  .input__field:focus {
+    outline: none;
+  }
+
+  .input__label {
+    display: inline-block;
+    float: right;
+    padding: 0 1em;
+    width: 40%;
+    color: #fff;
+    font-weight: bold;
+    user-select: none;
+  }
+
+  .input__label-content {
+    position: relative;
+    padding: 1em 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Jiro */
+  .input--jiro {
+    margin-top: 2em;
+  }
+
+  .input__field--jiro {
+    padding: 0.85em 0.5em;
+    width: 100%;
+    background: transparent;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .input__label--jiro {
+    position: absolute;
+    left: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    pointer-events: none;
+  }
+
+  .input__label-content--jiro {
+    transition: transform 0.3s 0.3s;
+  }
+
+  .input__label--jiro::before,
+  .input__label--jiro::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s;
+  }
+
+  .input__label--jiro::before {
+    border-top: 2px solid #fff;
+    transform: translate3d(0, 100%, 0) translate3d(0, -2px, 0);
+    transition-delay: 0.3s;
+  }
+
+  .input__label--jiro::after {
+    z-index: -1;
+    background: rgba(255, 255, 255, .3);
+    transform: scale3d(1, 0, 1);
+    transform-origin: 50% 0%;
+  }
+
+  .input__field--jiro:focus,
+  .input--filled .input__field--jiro {
+    opacity: 1;
+    transition-delay: 0.3s;
+  }
+
+  .input__field--jiro:focus + .input__label--jiro .input__label-content--jiro,
+  .input--filled .input__label-content--jiro {
+    transform: translate3d(0, -80%, 0);
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  }
+
+  .input__field--jiro:focus + .input__label--jiro::before,
+  .input--filled .input__label--jiro::before {
+    transition-delay: 0s;
+  }
+
+  .input__field--jiro:focus + .input__label--jiro::before,
+  .input--filled .input__label--jiro::before {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .input__field--jiro:focus + .input__label--jiro::after,
+  .input--filled .input__label--jiro::after {
+    transform: scale3d(1, 1, 1);
+    transition-delay: 0.3s;
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  }
+}

@@ -1,0 +1,76 @@
+@import '~iview/src/styles/index.less';
+@menu-dark-title: #001529;
+@menu-dark-active-bg: #000c17;
+@layout-sider-background: #001529;
+@error-hove-color: #f16643;
+@success-hove-color: #47cb89;
+
+.error-text-color {
+  color: @error-color !important;
+  &:hover {
+    color: @error-hove-color !important;
+  }
+  &:focus {
+    box-shadow: none !important;;
+  }
+}
+
+.success-text-color {
+  color: @success-color !important;
+  &:hover {
+    color: @success-hove-color !important;
+  }
+  &:focus {
+    box-shadow: none !important;;
+  }
+}
+
+.primary-text-color {
+  color: @primary-color !important;
+  &:hover {
+    color: @link-hover-color !important;
+  }
+  &:focus {
+    box-shadow: none !important;;
+  }
+}
+
+.ivu-table-wrapper {
+  .ivu-btn-text.ivu-btn-ghost {
+    color: @primary-color;
+    &:hover {
+      color: @link-hover-color;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.drawer-footer{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  box-shadow: @box-shadow;
+  padding: 10px 16px;
+  text-align: center;
+  background: #fff;
+  .ivu-btn+.ivu-btn {
+    margin-left: 8px;
+  }
+}
+
+.spin-icon-load{
+  animation: ani-demo-spin 1.5s linear infinite;
+}
+@keyframes ani-demo-spin {
+  from { transform: rotate(0deg);}
+  50%  { transform: rotate(180deg);}
+  to   { transform: rotate(360deg);}
+}
+
+@import "assets/css/base.less";
+@import "assets/css/editPage.less";
+@import "assets/css/ListPage.less";
+@import "assets/css/reset.less";

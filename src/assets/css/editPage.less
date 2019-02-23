@@ -1,0 +1,67 @@
+.edit-content {
+  .card {
+    &:after {
+      clear: both;
+    }
+    + .card {
+      margin-top: 10px;
+    }
+    .title-box {
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      h3 {
+        color: @primary-color;
+        padding-left: 10px;
+        border-left: 3px solid @primary-color;
+        height: 21px;
+      }
+    }
+  }
+
+  .footerButton {
+    height: 50px;
+    line-height: 50px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, .03);
+    background: #fff;
+    border-top: 1px solid #e8e8e8;
+    z-index: 9;
+    .padL1 {
+      margin-left: 271px;
+    }
+    .padR1 {
+      font-size: 0;
+      display: flex;
+      align-items: center;
+      .btn {
+        border-radius: 0;
+        padding: 0 20px;
+        margin-left: 0;
+        color: @text-color;
+        background: none;
+        border: 0;
+        height: 50px;
+        + .btn {
+          margin-left: -1px
+        }
+        &:hover {
+          background: @primary-color;
+          color: @normal-color;
+          border: none;
+        }
+      }
+      .saveBtn {
+        background: @primary-color;
+        color: @normal-color;
+        border: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+.content-wrapper .zk-table__body-row:not(:first-of-type) {
+  border-top: 1px solid #e9eaec;
+  border-bottom: 1px solid #e9eaec;
+}
+
+.ivu-drawer-header p,
+.ivu-drawer-header-inner {
+  border-left: 3px solid @primary-color;
+  padding-left: 10px;
+  color: @primary-color;
+}
+
+/*  vue-treeselect   */
+.content-wrapper {
+  .vue-treeselect__control {
+    height: @input-height-base;
+    border-radius: @border-radius-small;
+    border: 1px solid @input-border-color;
+  }
+  .vue-treeselect--open.vue-treeselect__control {
+    border: 1px solid @input-border-color;
+  }
+  .vue-treeselect:not(.vue-treeselect--disabled):not(.vue-treeselect--focused)
+  .vue-treeselect__control {
+    &:hover {
+      border-color: @link-hover-color;
+    }
+    &:focus {
+      border-color: @link-hover-color;
+    }
+  }
+  .vue-treeselect__label {
+    padding: 2px 1px 2px 5px;
+  }
+  .vue-treeselect--single .vue-treeselect__option--selected {
+    color: @primary-color;
+  }
+  .vue-treeselect__menu {
+    border-color: @input-border-color;
+  }
+  .vue-treeselect--open-below .vue-treeselect__menu {
+    border-bottom-left-radius:  @border-radius-small;
+    border-bottom-right-radius:  @border-radius-small;
+  }
+  .vue-treeselect__single-value,
+  .vue-treeselect--focused.vue-treeselect--searchable .vue-treeselect__single-value {
+    color: @input-color;
+  }
+}
