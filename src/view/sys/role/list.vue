@@ -16,7 +16,7 @@
     </Form>
 
     <TablePro
-      :height="height - 180"
+      :height="height - 170"
       :loading="loading"
       ref="tables"
       editable
@@ -34,7 +34,7 @@
       <template slot="actionBar">
         <ButtonGroup type="primary" shape="circle">
           <!--v-permission="permissions.add"-->
-          <Button   @click="toEdit(null)" icon="ios-add">{{$t('btn.add')}}</Button>
+          <Button   @click="roleFormFlag = true" icon="ios-add">{{$t('btn.add')}}</Button>
           <Button :disabled="selectRowData.length <= 0"  @click="toEdit(null)" v-permission="permissions.delete" icon="ios-trash-outline">{{$t('btn.delete')}}</Button>
         </ButtonGroup>
       </template>
@@ -43,11 +43,8 @@
     <Drawer
       title="Create"
       v-model="roleFormFlag"
-      width="720"
-      :mask-closable="false"
-      :styles="roleFormStyles"
-    >
-      <role-form :id="0" @handelClose="doClose"/>
+      width="720">
+      <role-form :id="roleId" @handelClose="roleFormFlag = false"/>
     </Drawer>
   </div>
 </template>
@@ -55,7 +52,7 @@
 <script>
   import columns from './config/columns'
   import listMixin from '@/libs/mixin/listMixin'
-  import url from '@/libs/url/sys/role'
+  import config from './config/config'
   import TablePro from '_c/table-pro'
   import RoleForm from './components/_form'
 
@@ -65,19 +62,14 @@
     components: {TablePro, RoleForm},
     data() {
       return {
-        roleFormStyles: {
-          // height: 'calc(100% - 55px)',
-          // overflow: 'auto',
-          // paddingBottom: '53px',
-          // position: 'static'
-        },
+        roleId: null,
         queryForm: {},
         list:[],
         roleFormFlag: false,
-        permissions: url.permission,
+        permissions: config.permission,
         selectRowData:[],
         bizKey: 'sysRoleManager',
-        url: url.url(),
+        url: config.url,
         columns: columns.new(this),
       }
     },
@@ -92,12 +84,17 @@
       doDelete(row) {
 
       },
-      toEdit(row) {
+      toAdd() {
 
+      },
+      toEdit(row) {
+        console.log(row);
+        this.roleFormFlag = true;
+        this.roleId = row.id
       },
       doSelectRow(data) {
         this.selectRowData = data
-      }
+      },
     }
   }
 </script>

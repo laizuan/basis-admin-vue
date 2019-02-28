@@ -20,7 +20,7 @@
           </Col>
           <Col :span="12">
           <FormItem :label="$t('system.role.column.status')" prop="role.enable">
-            <i-switch v-model="form.role.enable" size="large" true-value="1" false-value="0">
+            <i-switch v-model="form.role.enable.value" size="large" :true-value="1" :false-value="0">
               <span slot="open">{{ $t('btn.enable') }}</span>
               <span slot="close">{{ $t('btn.disable') }}</span>
             </i-switch>
@@ -47,7 +47,7 @@
       </div>
     </Form>
     <div class="drawer-footer">
-      <Button @click="">{{ $t('btn.cancel') }}</Button>
+      <Button @click="doClose">{{ $t('btn.cancel') }}</Button>
       <Button type="primary" @click="doClose">{{ $t('btn.save') }}</Button>
     </div>
   </div>
@@ -57,15 +57,39 @@
   import formMixin from '@/libs/mixin/formMixin'
   import model from '../config/model'
   import rules from '../config/rules'
+  import config from '../config/config'
   import { sprintf } from '@/libs/util'
+  import menu from '@/libs/url/sys/menu'
+
   export default {
     name: "sys-role-form",
+    props: {
+      id: {
+        type: String,
+        default: null
+      }
+    },
     data() {
       return {
         form: {
           role: model.new()
         },
+        permissions: config.permission,
         rules
+      }
+    },
+    watch:{
+      id(val) {
+        if (val) {
+          this.$api.get(config.url.get, {roleId: this.id}, (res)=> {
+            this.form.role = res || model.new()
+          })
+        } else {
+          this.form.role = model.new()
+        }
+        this.$api.get(menu.url.treeList, {}, (res)=>{
+
+        })
       }
     },
     mixins: [formMixin],

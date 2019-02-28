@@ -28,7 +28,6 @@ export default {
         ellipsis: true,
         tooltip: true,
         key: 'enable',
-        fixed: 'right',
         align: 'center',
         render(h, row) {
           return h('Tag',{
@@ -51,6 +50,7 @@ export default {
         key: 'handle',
         options: ['delete'],
         align: 'center',
+        fixed: 'right',
         button: [
           (h, params, vm) => {
             return h('Button', {

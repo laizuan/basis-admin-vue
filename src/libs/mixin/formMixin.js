@@ -13,7 +13,7 @@ export default {
       this.$refs[name].resetFields();
     },
     idIsNull(id) {
-      return id === undefined || id === null || id === 0;
+      return !id || id === undefined || id === null || id === 0;
     }
   }
 };

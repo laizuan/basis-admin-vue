@@ -32,7 +32,8 @@ export default {
     validFailure: '数据验证不通过。已标识为红色，请修正！',
     loadingResources: '正在为您加载资源...',
     logOutTitle: '确定登出',
-    deleteMsg: '您确定要删除这条数据吗?'
+    deleteMsg: '您确定要删除这条数据吗?',
+    loginTimeOut: '登入过期，请重新登入。'
   },
   notification: {
     successMsg: '操作成功',

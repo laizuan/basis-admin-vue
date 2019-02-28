@@ -80,8 +80,7 @@
 <script>
   import model from '../config/model'
   import rules from '../config/rules'
-  import url from '@/libs/url/sys/menu'
-  import constants from '@/libs/constants'
+  import config from '../config/config'
   import formMixin from '@/libs/mixin/formMixin'
   import Treeselect from '@riophae/vue-treeselect'
   import '@/assets/css/vue-treeselect.less'
@@ -117,7 +116,7 @@
           }
         },
         fastValue: '',
-        url: url.new(),
+        url: config.url,
         showDrawerFlag: false,
         rules: rules.new(this),
         menuTypes: null,
@@ -136,11 +135,12 @@
 
       }
     },
-    mounted() {
-      constants.getEnum(this, 'menuTypes', 'MenuTypeEnum')
-      constants.getEnum(this, 'visibles', 'VisibleStateEnum')
-      constants.getEnum(this, 'enables', 'EnableEnum')
+    created(){
+      config.constants.getEnum(this, 'menuTypes', 'MenuTypeEnum')
+      config.constants.getEnum(this, 'visibles', 'VisibleStateEnum')
+      config.constants.getEnum(this, 'enables', 'EnableEnum')
     },
+    mounted() {    },
     components: {Treeselect},
     mixins: [formMixin],
     methods: {
@@ -230,7 +230,6 @@
                 that.$emit('handleFast', res.data);
               }
             })
-
           },
           onCancel() {
             that.fastValue = null;

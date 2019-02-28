@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {Message} from 'iview'
+import api from './api'
 import store from '@/store'
 import router from "@/router";
 import config from "@/config";
@@ -43,7 +44,6 @@ class HttpRequest {
        }
       if (config.method === 'post') {
         config.data = qs.stringify(config.data, { skipNulls: true });
-        //config.data = qs.stringify(config.data, { skipNulls: true });
       }
       this.queue[url] = true
       return config
@@ -58,7 +58,7 @@ class HttpRequest {
       if (reslut.code !== config.field.code.success) {
         if (reslut.code === config.field.code.unauthorized) {
           Message.warning({
-            content: '登入过期，请重新登入。',
+            content: api.getI18n('message.loginTimeOut'),
             duration: 2,
             onClose() {
               store.dispatch('FedLogOut')
@@ -78,11 +78,8 @@ class HttpRequest {
           })
         } else {
           //未知异常，一般是服务器内部异常。
-          Message.error({
-            content: (reslut.msg || reslut.errorMsg),
-            duration: 6
-          })
-          console.info('Server Response Error -----> ', (reslut.errorMsg || reslut.msg));
+          api.notiError(reslut.msg || reslut['errorMsg'])
+          console.info('Server Response Error -----> ', (reslut['errorMsg'] || reslut.msg));
           return Promise.reject("error")
         }
       } else {
@@ -90,6 +87,7 @@ class HttpRequest {
         return reslut
       }
     }, error => {
+      api.notiError(error)
       this.destroy(url)
       return Promise.reject(error)
     })

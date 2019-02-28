@@ -92,11 +92,11 @@
 </template>
 <script>
   import SplitPane from '_c/split-pane';
-  import url from '@/libs/url/sys/menu'
   import columns from './config/columns'
   import TreeTable from 'tree-table-vue'
   import MenuForm from './components/_form'
   import model from './config/model'
+  import config from './config/config'
 
   export default {
     name: 'sys-menu-list',
@@ -108,9 +108,10 @@
         offset: 0.68,
         list: [],
         height: this.$config.clientHeight - 140,
-        url: url.new(),
+        url: config.url,
         column: columns.new(this),
-        selectRow: null
+        selectRow: null,
+        permissions: config.permission
       }
     },
     mounted() {

@@ -32,7 +32,8 @@ export default {
     validFailure: '數據驗證不通過。已標識為紅色，請修正！ ',
     loadingResources: '正在為您加載資源...',
     logOutTitle: '確定登出',
-    deleteMsg: '您確定要刪除這條數據嗎?'
+    deleteMsg: '您確定要刪除這條數據嗎?',
+    loginTimeOut:'登錄已過期，請再次登錄。'
   },
   notification: {
     successMsg: '操作成功',

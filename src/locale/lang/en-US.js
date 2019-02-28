@@ -32,7 +32,8 @@ export default {
     validFailure: 'Data verification failed. It has been marked as red, please correct it!',
     loadingResources: 'Loading resources for you...',
     logOutTitle: 'Determine the appropriate',
-    deleteMsg: 'Are you sure you want to delete this data?'
+    deleteMsg: 'Are you sure you want to delete this data?',
+    loginTimeOut: 'Login expired, please log in again. '
   },
   notification: {
     successMsg: 'Successful operation',

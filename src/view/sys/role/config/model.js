@@ -2,9 +2,12 @@ export default {
   new() {
     return {
       roleName: '',
-      sortNo: '',
-      enable: '1',
-      remark: ''
+      sortNo: 0,
+      enable: {
+        value: 1
+      },
+      remark: '',
+      menus: []
     }
   }
 }
