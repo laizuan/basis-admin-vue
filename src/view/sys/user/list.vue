@@ -22,34 +22,34 @@
             <v-time-picker-pro ref="timePickerPro"/>
           </FormItem>
         </Col>
-        <div v-show="queryMore">
-          <Col :sm="12" :md="8" :lg="6">
-            <FormItem>
-              <Input v-model="queryForm.account" placeholder="account"/>
-            </FormItem>
-          </Col>
-          <Col :sm="12" :md="8" :lg="6">
-            <FormItem>
-              <Input v-model="queryForm.account" placeholder="account"/>
-            </FormItem>
-          </Col>
-          <Col :sm="12" :md="8" :lg="6">
-            <FormItem>
-              <Input v-model="queryForm.account" placeholder="account"/>
-            </FormItem>
-          </Col>
-          <Col :sm="12" :md="8" :lg="6">
-            <FormItem>
-              <v-time-picker-pro ref="timePickerPro"/>
-            </FormItem>
-          </Col>
-        </div>
+        <collapse-transition>
+          <div  v-show="queryMore">
+            <Col :sm="12" :md="8" :lg="6">
+              <FormItem>
+                <Input v-model="queryForm.account" placeholder="account"/>
+              </FormItem>
+            </Col>
+            <Col :sm="12" :md="8" :lg="6">
+              <FormItem>
+                <Input v-model="queryForm.account" placeholder="account"/>
+              </FormItem>
+            </Col>
+            <Col :sm="12" :md="8" :lg="6">
+              <FormItem>
+                <Input v-model="queryForm.account" placeholder="account"/>
+              </FormItem>
+            </Col>
+            <Col :sm="12" :md="8" :lg="6">
+              <FormItem>
+                <v-time-picker-pro ref="timePickerPro"/>
+              </FormItem>
+            </Col>
+          </div>
+        </collapse-transition>
         <Col :sm="12" :md="8" :lg="6">
           <FormItem>
             <Button icon="ios-search" @click="doQuery">{{$t('btn.search')}}</Button>
-            <Button type="text" @click="queryMore = !queryMore">更多查询
-              <Icon type="ios-arrow-down"/>
-            </Button>
+            <Button type="text" @click="queryMore = !queryMore">更多查询<Icon type="ios-arrow-down"/></Button>
           </FormItem>
         </Col>
       </Form>
@@ -83,48 +83,49 @@
   </div>
 </template>
 <script>
-  import listMixin from '@/libs/mixin/listMixin'
-  import user from '@/libs/url/sys/user'
-  import columns from './config/columns'
-  import TablePro from '_c/table-pro'
+import listMixin from '@/libs/mixin/listMixin'
+import user from '@/libs/url/sys/user'
+import columns from './config/columns'
+import TablePro from '_c/table-pro'
+import CollapseTransition from '_c/collapse-transition/collapse-transition'
 
-  export default {
-    name: 'sys-user-list',
-    data() {
-      return {
-        queryMore: false,
-        queryForm: {
-          userName: null,
-          account: null
-        },
-        bizKey: 'sysUserList',
-        selectRowData: [],
-        columns: columns.new(this),
-        list: [],
-        url: user.url(),
-        permissions: user.permission,
-        addRouterName: 'userForm'
-      }
+export default {
+  name: 'sys-user-list',
+  data () {
+    return {
+      queryMore: false,
+      queryForm: {
+        userName: null,
+        account: null
+      },
+      bizKey: 'sysUserList',
+      selectRowData: [],
+      columns: columns.new(this),
+      list: [],
+      url: user.url(),
+      permissions: user.permission,
+      addRouterName: 'userForm'
+    }
+  },
+  mounted () {
+    this.doInit()
+  },
+  mixins: [listMixin],
+  components: { TablePro, CollapseTransition },
+  methods: {
+    doInit () {
+      this.doPage()
     },
-    mounted() {
-      this.doInit()
+    doDelete (params) {
     },
-    mixins: [listMixin],
-    components: {TablePro},
-    methods: {
-      doInit() {
-        this.doPage()
-      },
-      doDelete(params) {
-      },
-      toEdit(params) {
-        this.toAdd((params === null ? 0 : params.id))
-      },
-      doSelectRow(selection) {
-        this.selectRowData = selection
-      }
+    toEdit (params) {
+      this.toAdd((params === null ? 0 : params.id))
+    },
+    doSelectRow (selection) {
+      this.selectRowData = selection
     }
   }
+}
 </script>
 
 <style lang="less">

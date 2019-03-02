@@ -26,7 +26,7 @@ module.exports = {
   // tweak internal webpack configuration.
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   // 如果你不需要使用eslint，把lintOnSave设为false即可
-  lintOnSave: true,
+  lintOnSave: false,
   chainWebpack: config => {
     config.resolve.alias
       .set('@', resolve('src'))
@@ -40,9 +40,9 @@ module.exports = {
     port: 1024, // 端口号
     host: 'dev.basis.com',
     https: false, // https:{type:Boolean}
-    open: true, //配置自动启动浏览器
+    open: true, // 配置自动启动浏览器
     proxy: 'http://dev.basis.com:8080' // 配置跨域处理,只有一个代理
   },
 
-  pluginOptions: {},
+  pluginOptions: {}
 }

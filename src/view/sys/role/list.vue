@@ -34,8 +34,10 @@
       <template slot="actionBar">
         <ButtonGroup type="primary" shape="circle">
           <!--v-permission="permissions.add"-->
-          <Button   @click="roleFormFlag = true" icon="ios-add">{{$t('btn.add')}}</Button>
-          <Button :disabled="selectRowData.length <= 0"  @click="toEdit(null)" v-permission="permissions.delete" icon="ios-trash-outline">{{$t('btn.delete')}}</Button>
+          <Button @click="toAdd" icon="ios-add">{{$t('btn.add')}}</Button>
+          <Button :disabled="selectRowData.length <= 0" @click="toEdit(null)" v-permission="permissions.delete"
+                  icon="ios-trash-outline">{{$t('btn.delete')}}
+          </Button>
         </ButtonGroup>
       </template>
     </TablePro>
@@ -50,51 +52,51 @@
 </template>
 
 <script>
-  import columns from './config/columns'
-  import listMixin from '@/libs/mixin/listMixin'
-  import config from './config/config'
-  import TablePro from '_c/table-pro'
-  import RoleForm from './components/_form'
+import columns from './config/columns'
+import listMixin from '@/libs/mixin/listMixin'
+import config from './config/config'
+import TablePro from '_c/table-pro'
+import RoleForm from './components/_form'
 
-
-  export default {
-    name: 'system-role-list',
-    components: {TablePro, RoleForm},
-    data() {
-      return {
-        roleId: null,
-        queryForm: {},
-        list:[],
-        roleFormFlag: false,
-        permissions: config.permission,
-        selectRowData:[],
-        bizKey: 'sysRoleManager',
-        url: config.url,
-        columns: columns.new(this),
-      }
+export default {
+  name: 'system-role-list',
+  components: { TablePro, RoleForm },
+  data () {
+    return {
+      roleId: null,
+      queryForm: {},
+      list: [],
+      roleFormFlag: false,
+      permissions: config.permission,
+      selectRowData: [],
+      bizKey: 'sysRoleManager',
+      url: config.url,
+      columns: columns.new(this)
+    }
+  },
+  mixins: [listMixin],
+  created () {
+    this.doInit()
+  },
+  methods: {
+    doInit () {
+      this.doPage()
     },
-    mixins: [listMixin],
-    created() {
-        this.doInit()
+    doDelete (row) {
+
     },
-    methods: {
-      doInit() {
-        this.doPage()
-      },
-      doDelete(row) {
-
-      },
-      toAdd() {
-
-      },
-      toEdit(row) {
-        console.log(row);
-        this.roleFormFlag = true;
-        this.roleId = row.id
-      },
-      doSelectRow(data) {
-        this.selectRowData = data
-      },
+    toAdd () {
+      this.roleFormFlag = true
+      this.roleId = '0'
+    },
+    toEdit (row) {
+      console.log(row)
+      this.roleFormFlag = true
+      this.roleId = row.id
+    },
+    doSelectRow (data) {
+      this.selectRowData = data
     }
   }
+}
 </script>

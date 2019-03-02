@@ -6,11 +6,9 @@
           <h3>{{ $t('title.basic') }}</h3>
         </div>
 
-
         <FormItem :label="$t('system.role.column.roleName')" prop="role.roleName">
           <Input v-model="form.role.roleName" clearable/>
         </FormItem>
-
 
         <Row>
           <Col :span="12">
@@ -28,7 +26,6 @@
           </Col>
         </Row>
 
-
         <FormItem :label="$t('system.role.column.remark')" prop="role.remark">
           <Input v-model="form.role.remark" type="textarea"/>
         </FormItem>
@@ -41,7 +38,7 @@
         </div>
         <Row>
           <Col :span="24">
-
+            <Tree :data="menuList" show-checkbox multiple></Tree>
           </Col>
         </Row>
       </div>
@@ -54,54 +51,55 @@
 </template>
 
 <script>
-  import formMixin from '@/libs/mixin/formMixin'
-  import model from '../config/model'
-  import rules from '../config/rules'
-  import config from '../config/config'
-  import { sprintf } from '@/libs/util'
-  import menu from '@/libs/url/sys/menu'
+import formMixin from '@/libs/mixin/formMixin'
+import model from '../config/model'
+import rules from '../config/rules'
+import config from '../config/config'
+import { sprintf } from '@/libs/util'
+import menu from '@/libs/url/sys/menu'
 
-  export default {
-    name: "sys-role-form",
-    props: {
-      id: {
-        type: String,
-        default: null
-      }
-    },
-    data() {
-      return {
-        form: {
-          role: model.new()
-        },
-        permissions: config.permission,
-        rules
-      }
-    },
-    watch:{
-      id(val) {
-        if (val) {
-          this.$api.get(config.url.get, {roleId: this.id}, (res)=> {
-            this.form.role = res || model.new()
-          })
-        } else {
-          this.form.role = model.new()
-        }
-        this.$api.get(menu.url.treeList, {}, (res)=>{
-
+export default {
+  name: 'sys-role-form',
+  props: {
+    id: {
+      type: String,
+      default: null
+    }
+  },
+  data () {
+    return {
+      form: {
+        role: model.new()
+      },
+      menuList: [],
+      permissions: config.permission,
+      rules
+    }
+  },
+  watch: {
+    id (val) {
+      if (val && val !== '0') {
+        this.$api.get(config.url.get, { roleId: this.id }, (res) => {
+          this.form.role = res.data || model.new()
         })
+      } else {
+        this.form.role = model.new()
       }
-    },
-    mixins: [formMixin],
-    mounted() {
+      this.$api.get(menu.url.getRoleTreeList, {}, (res) => {
+        this.menuList = res.data
+      })
+    }
+  },
+  mixins: [formMixin],
+  mounted () {
 
-    },
-    methods: {
-      doClose() {
-        this.$emit("handleClose")
-      }
+  },
+  methods: {
+    doClose () {
+      this.$emit('handleClose')
     }
   }
+}
 </script>
 
 <style scoped>

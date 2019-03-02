@@ -5,7 +5,8 @@ export default {
     delete: '/menu/delete',
     add: '/menu/save',
     get: '/menu/get',
-    fast: '/menu/fast'
+    fast: '/menu/fast',
+    getRoleTreeList: '/menu/getRoleTreeList'
   },
   permission: {}
 
