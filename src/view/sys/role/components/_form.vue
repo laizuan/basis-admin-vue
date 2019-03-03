@@ -1,6 +1,6 @@
 <template>
   <div class="edit-content">
-    <Form :model="form" :label-width="100" :rules="rules">
+    <Form :model="form" :label-width="100" :rules="rules" ref="roleForm">
       <div class="card">
         <div class="title-box">
           <h3>{{ $t('title.basic') }}</h3>
@@ -38,14 +38,14 @@
         </div>
         <Row>
           <Col :span="23" offset="1">
-            <Tree :data="menuList" show-checkbox multiple></Tree>
+            <Tree ref="menuTree" :data="menuList" show-checkbox multiple></Tree>
           </Col>
         </Row>
       </div>
     </Form>
     <div class="drawer-footer">
       <Button @click="doClose">{{ $t('btn.cancel') }}</Button>
-      <Button type="primary" @click="doClose">{{ $t('btn.save') }}</Button>
+      <Button type="primary" @click="doSave">{{ $t('btn.save') }}</Button>
     </div>
   </div>
 </template>
@@ -95,6 +95,17 @@ export default {
 
   },
   methods: {
+    doSave() {
+      this.fromValidate('roleForm', () => {
+        let checkedAndIndeterminateNodes = this.$refs.menuTree.getCheckedAndIndeterminateNodes;
+        if (checkedAndIndeterminateNodes.length <= 0) {
+          this.$api.validateFail()
+        } else {
+          this.form.role.menuIds = checkedAndIndeterminateNodes;
+          this.$emit('handleSave', this.form.role);
+        }
+      })
+    },
     doClose () {
       this.$emit('handleClose')
     }

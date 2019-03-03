@@ -47,7 +47,9 @@
       title="Create"
       v-model="roleFormFlag"
       width="720">
-      <role-form :id="roleId" @handelClose="roleFormFlag = false"/>
+      <role-form :id="roleId"
+                 @handleClose="roleFormFlag = false"
+                 @handleSave="doSave" />
     </Drawer>
   </div>
 </template>
@@ -94,6 +96,16 @@ export default {
       console.log(row)
       this.roleFormFlag = true
       this.roleId = row.id
+    },
+    doSave(data){
+      let url = (data.id || data.id !== 0) ? config.url.update : config.url.add;
+      this.$api.post(url, this.form.role, (res) => {
+          if (res.data) {
+            this.roleFormFlag = false;
+            this.$api.messageSuccess()
+            this.doInit()
+          }
+      })
     },
     doSelectRow (data) {
       this.selectRowData = data
