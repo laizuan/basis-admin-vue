@@ -47,19 +47,28 @@
   }
 }
 
-.drawer-footer{
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  box-shadow: @box-shadow;
-  padding: 10px 16px;
-  text-align: center;
-  background: #fff;
-  .ivu-btn+.ivu-btn {
-    margin-left: 8px;
+.edit-drawer {
+  .ivu-drawer-body {
+    overflow: auto ;
+    padding-bottom: 53px ;
+    position: static ;
+  }
+  .drawer-footer{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-shadow: @box-shadow;
+    padding: 10px 16px;
+    text-align: center;
+    background: #fff;
+    .ivu-btn+.ivu-btn {
+      margin-left: 8px;
+    }
   }
 }
+
+
 
 .spin-icon-load{
   animation: ani-demo-spin 1.5s linear infinite;

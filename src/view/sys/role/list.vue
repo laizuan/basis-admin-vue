@@ -43,6 +43,7 @@
     </TablePro>
 
     <Drawer
+      class="edit-drawer"
       title="Create"
       v-model="roleFormFlag"
       width="720">

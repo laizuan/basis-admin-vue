@@ -37,7 +37,7 @@
           <h3>{{ $t('title.authorization') }}</h3>
         </div>
         <Row>
-          <Col :span="24">
+          <Col :span="23" offset="1">
             <Tree :data="menuList" show-checkbox multiple></Tree>
           </Col>
         </Row>
