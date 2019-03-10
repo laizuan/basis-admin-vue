@@ -59,13 +59,13 @@ export default {
     },
     //跳转到新增页面
     toAdd(id = 0) {
-      const route = {
+      let route = {
         name: this.addRouterName,
         params: {
           id
         }
       }
       this.$router.push(route)
-    }
+    },
   }
 };

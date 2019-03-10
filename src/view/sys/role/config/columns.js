@@ -19,7 +19,8 @@ export default {
         key: 'sortNo',
         ellipsis: true,
         tooltip: true,
-        editable: true,
+        editable: false,
+        width: '80px',
         align: 'center',
         title: t.$t('system.role.column.sortNo')
       },
@@ -28,6 +29,7 @@ export default {
         ellipsis: true,
         tooltip: true,
         key: 'enable',
+        width: '80px',
         align: 'center',
         render(h, row) {
           return h('Tag',{
@@ -46,6 +48,13 @@ export default {
         key: 'createTime'
       },
       {
+        title: t.$t('system.role.column.remark'),
+        ellipsis: true,
+        tooltip: true,
+        align: 'center',
+        key: 'remark'
+      },
+      {
         title: t.$t('btn.action'),
         key: 'handle',
         options: ['delete'],
@@ -59,7 +68,7 @@ export default {
                 ghost: true
               },
               on: {
-                'on-ok': () => {
+                'click': () => {
                   vm.$emit('to-edit', params)
                 }
               }

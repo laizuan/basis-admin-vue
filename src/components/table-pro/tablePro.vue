@@ -229,22 +229,9 @@
           if (handleBtns[item]) insideBtns.push(handleBtns[item])
         })
         let btns = item.button ? [].concat(insideBtns, item.button) : insideBtns;
-        let buttons = []
-        let line = (h, params, vm) => {
-          return h('Divider', {props: {type: 'vertical'}})
-        }
-        for (let i = 0, len = btns.length; i < len; i++) {
-          let btn = btns[i];
-          if (btn && (typeof btn === 'function')) {
-            buttons.push(btns[i])
-            if ((i + 1) < len) {
-              buttons.push(line)
-            }
-          }
-        }
         item.render = (h, params) => {
           params.tableData = this.value
-          return h('div', buttons.map(item => item(h, params, this)))
+          return h('div', btns.map(item => item(h, params, this)))
         }
         return item
       },

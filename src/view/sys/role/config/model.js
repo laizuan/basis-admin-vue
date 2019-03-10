@@ -7,7 +7,7 @@ export default {
         value: 1
       },
       remark: '',
-      menus: []
+      menuIds: []
     }
   }
 }

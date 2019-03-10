@@ -4,11 +4,10 @@ import api from './api'
 import store from '@/store'
 import router from "@/router";
 import config from "@/config";
-import qs from 'qs'
-
+import Qs from 'qs'
 class HttpRequest {
 
-  constructor(baseUrl = baseURL) {
+  constructor(baseUrl) {
     this.baseUrl = baseUrl
     this.queue = {}
   }
@@ -20,6 +19,7 @@ class HttpRequest {
     const config = {
       baseURL: this.baseUrl,
       headers: {
+       // 'Content-Type': 'application/x-www-form-urlencoded',
         'local':  lang
       }
     }
@@ -42,9 +42,9 @@ class HttpRequest {
          let $loading = window.document.getElementById('basis-loading')
          $loading.style.display = "block"
        }
-      if (config.method === 'post') {
-        config.data = qs.stringify(config.data, { skipNulls: true });
-      }
+     /*  if (config.data) {
+         config.data = Qs.stringify(config.data,  { indices: false })
+       }*/
       this.queue[url] = true
       return config
     }, error => {
@@ -53,7 +53,7 @@ class HttpRequest {
     // 响应拦截
     instance.interceptors.response.use(res => {
       this.destroy(url)
-      console.log('Server Response -----> ', res);
+      console.log('Server response -----> ', res);
       let reslut = res.data
       if (reslut.code !== config.field.code.success) {
         if (reslut.code === config.field.code.unauthorized) {
@@ -79,7 +79,7 @@ class HttpRequest {
         } else {
           //未知异常，一般是服务器内部异常。
           api.notiError(reslut.msg || reslut['errorMsg'])
-          console.info('Server Response Error -----> ', (reslut['errorMsg'] || reslut.msg));
+          console.info('Server response error -----> ', (reslut['errorMsg'] || reslut.msg));
           return Promise.reject("error")
         }
       } else {

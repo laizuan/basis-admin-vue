@@ -26,7 +26,6 @@
       :bizKey="bizKey"
       @on-delete="doDelete"
       @to-edit="toEdit"
-      @on-row-dblclick="toEdit"
       @on-selection-change="doSelectRow"
       @on-page-change="doChangePageIndex"
       @on-page-size-change="doChangePageSize"
@@ -45,10 +44,11 @@
     <Drawer
       class="edit-drawer"
       title="Create"
-      v-model="roleFormFlag"
+      v-model="showRoleFormFlag"
       width="720">
       <role-form :id="roleId"
-                 @handleClose="roleFormFlag = false"
+                 :flag = "showRoleFormFlag"
+                 @handleClose="showRoleFormFlag = false"
                  @handleSave="doSave" />
     </Drawer>
   </div>
@@ -69,7 +69,7 @@ export default {
       roleId: null,
       queryForm: {},
       list: [],
-      roleFormFlag: false,
+      showRoleFormFlag: false,
       permissions: config.permission,
       selectRowData: [],
       bizKey: 'sysRoleManager',
@@ -85,25 +85,29 @@ export default {
     doInit () {
       this.doPage()
     },
-    doDelete (row) {
-
-    },
     toAdd () {
-      this.roleFormFlag = true
-      this.roleId = '0'
+      this.roleId = 0
+      this.showRoleFormFlag = true
     },
-    toEdit (row) {
-      console.log(row)
-      this.roleFormFlag = true
-      this.roleId = row.id
+    toEdit (column) {
+      this.roleId = column.row.id
+      this.showRoleFormFlag = true
+    },
+    doDelete(coulmn) {
+      this.$api.get(this.url.delete, {roleId: coulmn.row.id}, () => {
+        this.$api.messageSuccess()
+        this.doQuery()
+      })
     },
     doSave(data){
-      let url = (data.id || data.id !== 0) ? config.url.update : config.url.add;
-      this.$api.post(url, this.form.role, (res) => {
+      let url = (data.id && data.id != 0) ? this.url.update : this.url.add;
+      this.$api.post(url, data, (res) => {
           if (res.data) {
-            this.roleFormFlag = false;
+            this.showRoleFormFlag = false;
             this.$api.messageSuccess()
-            this.doInit()
+            setTimeout(() => {
+              this.doInit()
+            }, 1000)
           }
       })
     },

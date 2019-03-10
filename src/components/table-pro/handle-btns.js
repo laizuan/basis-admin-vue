@@ -3,12 +3,12 @@ const btns = {
     return h('Poptip', {
       props: {
         confirm: true,
+        transfer: true,
         title: vm.$t('message.deleteMsg')
       },
       on: {
         'on-ok': () => {
           vm.$emit('on-delete', params)
-          vm.$emit('input', params.tableData.filter((item, index) => index !== params.row.initRowIndex))
         }
       }
     }, [

@@ -33,7 +33,7 @@ export default {
     axios.request({
       url: url,
       params,
-      method: 'get'
+      method: 'GET'
     }).then((res) => {
       if (success) {
         success(res)
@@ -47,8 +47,8 @@ export default {
   post(url, params, success, fail) {
     axios.request({
       url: url,
-      params,
-      method: 'post'
+      data: params,
+      method: 'POST'
     }).then((res) => {
       if (success) {
         success(res)

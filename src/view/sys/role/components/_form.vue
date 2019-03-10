@@ -62,8 +62,12 @@ export default {
   name: 'sys-role-form',
   props: {
     id: {
-      type: String,
+      type: Number,
       default: null
+    },
+    flag: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -77,17 +81,19 @@ export default {
     }
   },
   watch: {
-    id (val) {
-      if (val && val !== '0') {
-        this.$api.get(config.url.get, { roleId: this.id }, (res) => {
-          this.form.role = res.data || model.new()
+    flag (val) {
+      if (val) {
+        if (this.id && this.id != 0) {
+          this.$api.get(config.url.get, { roleId: this.id }, (res) => {
+            this.form.role = res.data || model.new()
+          })
+        }
+        this.$api.get(menu.url.getRoleTreeList, {roleId: this.id}, (res) => {
+          this.menuList = res.data
         })
       } else {
         this.form.role = model.new()
       }
-      this.$api.get(menu.url.getRoleTreeList, {}, (res) => {
-        this.menuList = res.data
-      })
     }
   },
   mixins: [formMixin],
@@ -97,11 +103,17 @@ export default {
   methods: {
     doSave() {
       this.fromValidate('roleForm', () => {
-        let checkedAndIndeterminateNodes = this.$refs.menuTree.getCheckedAndIndeterminateNodes;
+        let checkedAndIndeterminateNodes = this.$refs.menuTree.getCheckedAndIndeterminateNodes();
         if (checkedAndIndeterminateNodes.length <= 0) {
           this.$api.validateFail()
         } else {
-          this.form.role.menuIds = checkedAndIndeterminateNodes;
+          let menuIds = [];
+          checkedAndIndeterminateNodes.forEach(item => {
+            if (item.checked) {
+              menuIds.push(item.id)
+            }
+          });
+          this.form.role.menuIds = menuIds;
           this.$emit('handleSave', this.form.role);
         }
       })

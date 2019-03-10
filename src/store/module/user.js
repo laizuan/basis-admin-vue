@@ -41,13 +41,13 @@ export default {
     handleLogin({commit}, {username, password}) {
       username = username.trim()
       return new Promise((resolve, reject) => {
-        let data = {
+        let params = {
           username,
           password
         };
         axios.request({
           url: 'login',
-          data,
+          params,
           method: 'post'
         }).then(res => {
           const {data} = res
